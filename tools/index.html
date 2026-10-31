@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tools | Sabins Sound</title>
+  <meta name="description" content="Tools by Sabins Sound, including RigSync, which keeps your REAPER setup identical on every computer.">
+  <link rel="canonical" href="https://sabinssound.com/tools/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Sabins Sound">
+  <meta property="og:title" content="Tools | Sabins Sound">
+  <meta property="og:url" content="https://sabinssound.com/tools/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Sora:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../" aria-label="Sabins Sound home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="var(--surface)" stroke="var(--line)"/><g fill="var(--fg)"><rect x="6" y="13" width="2.5" height="6" rx="1"/><rect x="10.5" y="10" width="2.5" height="12" rx="1"/><rect x="19" y="10" width="2.5" height="12" rx="1"/><rect x="23.5" y="13" width="2.5" height="6" rx="1"/></g><rect x="14.75" y="7" width="2.5" height="18" rx="1" fill="var(--accent)"/></svg>
+        <span>Sabins <b>Sound</b></span>
+      </a>
+      <nav aria-label="Main">
+        <a href="./" aria-current="page">Tools</a>
+        <a class="preview-only" href="../#libraries">Libraries</a>
+        <a class="preview-only" href="../#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="tools-h" style="padding-bottom:0">
+      <h1 id="tools-h">Tools <span class="slash">/</span></h1>
+      <p class="todo">Short intro line for the tools page, if you want one (e.g. who the tools are for).</p>
+    </section>
+
+    <section class="section wrap" aria-label="All tools" style="padding-top:40px">
+      <ul class="grid">
+        <li>
+          <a class="card" href="rigsync/">
+            <div class="thumb" aria-hidden="true">
+              <svg class="sync" viewBox="0 0 520 320" role="img" aria-labelledby="sync-card-t">
+            <title id="sync-card-t">Diagram: two computers keep the same REAPER setup by syncing through one private GitHub repo.</title>
+            <path id="sync-card-a" class="line" d="M120 220 C 120 120, 200 80, 260 80"/>
+            <path id="sync-card-b" class="line" d="M260 80 C 320 80, 400 120, 400 220"/>
+            <circle class="pkt" r="5"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#sync-card-a"/></animateMotion></circle>
+            <circle class="pkt" r="5"><animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite"><mpath href="#sync-card-b"/></animateMotion></circle>
+            <circle class="pkt" r="3.5" opacity=".6"><animateMotion dur="3.4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#sync-card-b"/></animateMotion></circle>
+            <circle class="pkt" r="3.5" opacity=".6"><animateMotion dur="3.4s" begin="-1.7s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#sync-card-a"/></animateMotion></circle>
+            <g transform="translate(212 34)">
+              <rect class="hub" width="96" height="92" rx="14"/>
+              <path class="icon" d="M38 34h20M38 46h20M38 58h12M32 24h32v44H32z"/>
+            </g>
+            <text class="lbl lbl-hub" x="260" y="22" text-anchor="middle">your private GitHub repo</text>
+            <g transform="translate(40 206)">
+              <rect class="node" width="160" height="96" rx="10"/>
+              <rect class="screen" x="10" y="10" width="140" height="76" rx="5"/>
+              <rect class="bar on" x="20" y="22" width="70" height="8" rx="2"/><rect class="bar" x="20" y="38" width="110" height="8" rx="2"/><rect class="bar on" x="44" y="54" width="54" height="8" rx="2"/><rect class="bar" x="20" y="70" width="88" height="8" rx="2"/>
+            </g>
+            <g transform="translate(320 206)">
+              <rect class="node" width="160" height="96" rx="10"/>
+              <rect class="screen" x="10" y="10" width="140" height="76" rx="5"/>
+              <rect class="bar on" x="20" y="22" width="70" height="8" rx="2"/><rect class="bar" x="20" y="38" width="110" height="8" rx="2"/><rect class="bar on" x="44" y="54" width="54" height="8" rx="2"/><rect class="bar" x="20" y="70" width="88" height="8" rx="2"/>
+            </g>
+          </svg>
+            </div>
+            <div class="card-body">
+              <span class="tag">REAPER · Windows</span>
+              <h3>RigSync</h3>
+              <p class="desc">Keeps your REAPER setup identical on every computer by syncing it through your own private GitHub repo.</p>
+              <span class="card-link">See RigSync →</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <p class="todo" style="margin-top:16px">Other tools to list here, if any (name, one line, platform, link).</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© <span data-year>2026</span> Sabins Sound</span>
+      <a href="../">Home</a>
+    </div>
+  </footer>
+
+  <script src="../js/site.js"></script>
+  <script src="../js/design-panel.js"></script><!-- design-time only: remove before launch -->
+</body>
+</html>

@@ -1,0 +1,24 @@
+/* Design tokens, shared with jaysabinsaudio.com (direction 6A, Oct 2026). Dark, single theme. */
+:root{
+  /* Palette */
+  --bg:#0d1117; --surface:#151b23; --raise:color-mix(in srgb, var(--surface), #fff 5%);
+  --fg:#e9eaec; --muted:#a3a7ae; --line:#34383e;
+  --accent:#3fc48a;      /* play button, slashes, focus rings, links on hover */
+  --accent-ink:#0d1117;  /* icons and text on accent fills */
+  --glow:0.75;           /* neon glow strength on accent items, 0 = off, 1 = strong */
+  --glow-color:color-mix(in srgb, var(--accent) calc(var(--glow) * 70%), transparent);
+  --glow-box:0 0 calc(var(--glow) * 8px) var(--glow-color), 0 0 calc(var(--glow) * 36px) var(--glow-color);
+  --glow-text:0 0 calc(var(--glow) * 4px) var(--glow-color), 0 0 calc(var(--glow) * 18px) var(--glow-color);
+  color-scheme:dark;
+
+  /* Type */
+  --title:"Sora", system-ui, sans-serif;
+  --body:"Sora", system-ui, sans-serif;
+  --mono:"Fira Code", ui-monospace, monospace;
+
+  /* Shape and rhythm */
+  --radius:8px; --radius-sm:6px;
+  --section-gap:64px;
+  --gutter:clamp(16px, 3vw, 40px);
+  --max:1440px;
+}

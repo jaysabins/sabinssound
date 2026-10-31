@@ -1,0 +1,142 @@
+/* Layout and components. Same base as jaysabinsaudio.com, turned up for a product site:
+   bigger type, hero art, animated accents, hover glow. Motion is off for prefers-reduced-motion. */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;box-shadow:var(--glow-box)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:8px 12px;border-radius:var(--radius-sm);z-index:100}
+.skip:focus{left:8px}
+.slash{font-weight:600;color:var(--accent);text-shadow:var(--glow-text)}
+
+/* Header: sticky, blurred */
+.site-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
+.site-header.scrolled{border-bottom-color:var(--line)}
+.site-header .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px;padding-top:16px;padding-bottom:16px}
+.brand{display:flex;align-items:center;gap:10px;font:600 20px/1 var(--title);letter-spacing:-.01em}
+.brand-mark{width:28px;height:28px;flex:none}
+.brand b{font-weight:300}
+nav{display:flex;flex-wrap:wrap;gap:4px 22px}
+nav a{font-size:14px;padding:6px 0;transition:color .15s,text-shadow .15s}
+nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);text-shadow:var(--glow-text)}
+
+/* Hero */
+.hero{position:relative;padding-top:clamp(56px,10vw,128px);padding-bottom:clamp(56px,8vw,104px);overflow:hidden}
+.eyebrow{margin:0 0 18px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.hero h1{margin:0;max-width:16ch;font:300 clamp(44px,8.4vw,120px)/.98 var(--title);letter-spacing:-.045em}
+.lead{margin:24px 0 0;max-width:52ch;font:300 clamp(18px,1.8vw,22px)/1.5 var(--body);color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+
+/* Animated waveform behind the home hero (bars built by js/site.js) */
+.wave{position:absolute;inset:auto 0 0 0;height:min(46%,320px);display:flex;align-items:flex-end;gap:clamp(2px,.5vw,6px);padding:0 var(--gutter);opacity:.5;pointer-events:none;-webkit-mask-image:linear-gradient(to right,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(to right,transparent,#000 30%,#000 70%,transparent);z-index:-1}
+.wave span{flex:1;height:calc(var(--h) * 100%);border-radius:3px 3px 0 0;background:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:var(--glow-box);transform-origin:bottom;animation:wave 2.4s ease-in-out infinite alternate;animation-delay:calc(var(--i) * -90ms)}
+@keyframes wave{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* Sections */
+.section{padding-top:var(--section-gap)}
+h2{margin:0 0 28px;font:300 clamp(36px,4.6vw,56px)/1 var(--title);letter-spacing:-.035em}
+h3{margin:0;font:600 20px/1.3 var(--title)}
+.section-intro{margin:-12px 0 28px;max-width:60ch;color:var(--muted)}
+
+/* Cards */
+.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:16px}
+.grid > li{display:flex}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.card{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
+.card-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.desc{margin:0;font-size:15px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+.chips li{font:400 12px/1 var(--mono);color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:5px 7px}
+.tag{align-self:flex-start;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:5px 7px}
+.card-link{margin-top:auto;padding-top:6px;font:500 13px var(--mono);color:var(--accent);text-shadow:var(--glow-text)}
+/* Linked cards lift and tilt toward the pointer (--tx/--ty set by js/site.js) */
+a.card{color:inherit;position:relative;transform:perspective(1000px) rotateX(calc(var(--ty,0) * -6deg)) rotateY(calc(var(--tx,0) * 6deg)) scale(var(--lift,1));transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .2s,box-shadow .2s}
+a.card:hover,a.card:focus-visible{--lift:1.02;z-index:1;border-color:var(--accent);box-shadow:var(--glow-box);outline:none}
+a.card:hover{transition-duration:.15s}
+a.card:hover .card-link{text-decoration:underline}
+.thumb{aspect-ratio:16/9;background:var(--raise);border-bottom:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.thumb svg{width:86%;height:auto}
+
+/* Featured product (home) */
+.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:center;gap:clamp(24px,4vw,56px);padding:clamp(24px,4vw,48px)}
+.feature h3{font:300 clamp(36px,5vw,64px)/1 var(--title);letter-spacing:-.04em}
+.feature .desc{font-size:17px;max-width:46ch}
+.feature .cta{margin-top:12px}
+.feature-art{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(12px,2vw,24px)}
+
+/* Sync illustration (RigSync): packets travel along the paths */
+.sync .node{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.sync .hub{fill:color-mix(in srgb,var(--accent) 12%,var(--surface));stroke:var(--accent);stroke-width:1.5;filter:drop-shadow(0 0 calc(var(--glow) * 10px) var(--glow-color))}
+.sync .screen{fill:var(--bg)}
+.sync .line{stroke:var(--line);stroke-width:2;stroke-dasharray:4 6;fill:none}
+.sync .pkt{fill:var(--accent);filter:drop-shadow(0 0 calc(var(--glow) * 6px) var(--glow-color))}
+.sync .lbl{font:500 13px var(--mono);fill:var(--muted)}
+.sync .lbl-hub{fill:var(--accent)}
+.sync .icon{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sync .bar{fill:var(--line)}
+.sync .bar.on{fill:var(--accent)}
+
+/* Product page */
+.crumb{display:inline-block;margin-bottom:28px;font:400 13px var(--mono);color:var(--muted)}
+.crumb:hover{color:var(--accent)}
+.product-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.product-hero h1{max-width:none}
+.product-hero .chips{margin-top:24px}
+.specs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:1px;margin:0;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.specs div{background:var(--surface);padding:18px 20px}
+.specs dt{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.specs dd{margin:10px 0 0;font:600 18px/1.3 var(--title)}
+.feat-icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;border:1px solid var(--accent);box-shadow:var(--glow-box);background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.feat-icon svg{width:22px;height:22px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.prose{max-width:62ch}
+.prose p{margin:0 0 1em;font-size:17px}
+.band{margin-top:var(--section-gap);padding:clamp(32px,5vw,64px);border:1px solid var(--accent);border-radius:var(--radius);box-shadow:var(--glow-box);background:radial-gradient(120% 140% at 0% 0%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 60%),var(--surface);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px}
+.band h2{margin:0}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:var(--radius-sm);font:600 15px var(--body);cursor:pointer;border:1px solid transparent;transition:filter .15s,border-color .15s,transform .15s}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:var(--glow-box)}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-ghost{border-color:var(--line);color:var(--fg)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-lg{min-height:56px;padding:0 28px;font-size:16px}
+
+/* TODO callouts: shown only on previews (staging, local), never on the live site. See js/site.js. */
+.todo{display:none;margin:0 0 16px;padding:14px 16px;border:1px dashed #f2b544;border-radius:var(--radius-sm);background:color-mix(in srgb,#f2b544 7%,transparent);font:400 13px/1.55 var(--mono);color:#f5d9a1}
+.todo::before{content:"TODO  ";font-weight:600;color:#f2b544}
+.todo-section{display:none}
+.preview .todo{display:block}
+.preview .todo-section{display:block}
+.preview dl.todo-section{display:grid}
+.preview-only{display:none!important}
+.preview .preview-only{display:revert!important}
+.preview span.todo,.preview .chips .todo{display:inline-block;margin:0}
+
+/* Footer */
+.site-footer{margin-top:var(--section-gap);border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.site-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:28px;padding-bottom:28px}
+.site-footer a:hover{color:var(--fg)}
+
+/* Scroll reveal (class added by js/site.js) */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:860px){
+  :root{--section-gap:48px}
+  .feature,.product-hero{grid-template-columns:1fr}
+  .band{flex-direction:column;align-items:flex-start}
+}
+@media (max-width:480px){
+  .cta .btn{flex:1 1 100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .wave span{animation:none;transform:scaleY(.6)}
+  .sync .pkt{display:none}
+  a.card,.btn{transform:none!important;transition:none}
+  .reveal{opacity:1;transform:none;transition:none}
+}

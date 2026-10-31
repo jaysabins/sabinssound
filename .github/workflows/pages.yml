@@ -1,0 +1,67 @@
+# Builds one GitHub Pages site from two branches:
+#   main    -> /                 (live; shows holding/index.html while that folder exists on main)
+#   staging -> /<STAGING_PATH>/  (preview for Jay). STAGING_PATH is a repo secret holding a long,
+#              random folder name, so the address never appears in this public file or in the logs.
+#              Every staging page gets noindex + no-referrer. This hides the preview; it doesn't lock it.
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main, staging]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main, path: live }
+      - uses: actions/checkout@v4
+        with: { ref: staging, path: stage }
+
+      - name: Assemble site
+        env:
+          STAGE: ${{ secrets.STAGING_PATH }}
+        run: |
+          if [ -z "$STAGE" ]; then
+            echo "::error::Add the STAGING_PATH repo secret (Settings > Secrets and variables > Actions). See README."
+            exit 1
+          fi
+          case "$STAGE" in *[!A-Za-z0-9_-]*) echo "::error::STAGING_PATH may only use letters, digits, - and _"; exit 1;; esac
+
+          mkdir -p _site
+          if [ -d live/holding ]; then
+            cp live/holding/index.html _site/index.html
+            cp -r live/css live/assets _site/
+            printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
+          else
+            cp -r live/. _site/
+            rm -rf _site/.git _site/.github _site/holding _site/*.md
+            # No staging line here: listing it would publish the hidden address. Staging pages carry noindex instead.
+            printf 'User-agent: *\nAllow: /\n' > _site/robots.txt
+          fi
+
+          mkdir -p "_site/$STAGE"
+          cp -r stage/. "_site/$STAGE/"
+          rm -rf "_site/$STAGE/.git" "_site/$STAGE/.github" "_site/$STAGE/holding" "_site/$STAGE"/*.md "_site/$STAGE/404.html"
+          # noindex keeps search engines out; no-referrer stops the address leaking to sites the preview links to
+          find "_site/$STAGE" -name '*.html' -exec sed -i 's|<head>|<head>\n  <meta name="robots" content="noindex, nofollow">\n  <meta name="referrer" content="no-referrer">|' {} +
+          touch _site/.nojekyll
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with: { retention-days: 1 }  # the bundle includes staging; keep it downloadable as briefly as possible
+      - id: deployment
+        uses: actions/deploy-pages@v4
