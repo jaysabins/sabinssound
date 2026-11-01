@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hero mockups | Sabins Sound</title>
+  <!-- Design mockups for a full-screen hero. Staging only: the deploy never copies mockups/ to the live site. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d1117">
+  <script>try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}</script>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Sora:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/site.css">
+  <style>
+    /* Shared */
+    .splash{position:relative;min-height:calc(100svh - 72px);display:flex;overflow:hidden;isolation:isolate}
+    .splash .img{position:absolute;inset:0;z-index:-2;background:var(--surface) center/cover no-repeat}
+    .has-img .splash .img{background-image:url("../../assets/hero/placeholder.svg")}
+    .img-badge{position:absolute;right:16px;top:16px;z-index:3;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#e9eaec;background:rgba(13,17,23,.6);border:1px solid rgba(233,234,236,.25);border-radius:4px;padding:6px 8px}
+    .no-img .img-badge{display:none}
+    .scroll-cue{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:grid;justify-items:center;gap:6px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .scroll-cue svg{width:22px;height:22px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:cue 1.8s ease-in-out infinite}
+    @keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+    .splash h1{margin:0;max-width:14ch;font:300 clamp(44px,8vw,120px)/.98 var(--title);letter-spacing:-.045em}
+    .vc h1{font-size:clamp(40px,6vw,96px)}
+    .v{display:none}
+    [data-v="a"] .va,[data-v="b"] .vb,[data-v="c"] .vc{display:flex}
+
+    /* A: full-bleed image, text bottom-left over a gradient */
+    .va{align-items:flex-end}
+    .va .img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,.15) 0%,rgba(13,17,23,.35) 45%,rgba(13,17,23,.92) 100%)}
+    .no-img .va .img{background:radial-gradient(90% 70% at 70% 30%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%),var(--bg)}
+    .no-img .va .img::after{display:none}
+    .va .inner{width:100%;padding-bottom:clamp(72px,12vh,128px)}
+    .has-img .va h1,.has-img .va .lead{color:#e9eaec}
+    .has-img .va .lead{color:#c9ccd1}
+    .has-img .va .btn-ghost{color:#e9eaec;border-color:rgba(233,234,236,.35)}
+
+    /* B: centered wordmark over a full-height waveform */
+    .vb{align-items:center;justify-content:center;text-align:center}
+    .vb .img{opacity:.35}
+    .vb .img::after{content:"";position:absolute;inset:0;background:color-mix(in srgb,var(--bg) 55%,transparent)}
+    .vb .wave{height:70%;bottom:12%;opacity:.45}
+    .vb .inner{display:grid;justify-items:center}
+    .vb .word{margin:0;font:300 clamp(56px,13vw,200px)/.9 var(--title);letter-spacing:-.05em}
+    .vb .word b{font-weight:600}
+    .vb .lead{margin-top:20px}
+    .vb .cta{justify-content:center}
+
+    /* C: split, text left and image panel right */
+    .vc{align-items:stretch}
+    .vc .inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:center;width:100%;padding-top:24px;padding-bottom:72px}
+    .vc .panel{position:relative;height:100%;min-height:420px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface) center/cover no-repeat}
+    .has-img .vc .panel{background-image:url("../../assets/hero/placeholder.svg");border-color:var(--accent);box-shadow:var(--glow-box)}
+    .no-img .vc .panel{display:grid;place-items:center;padding:24px}
+    .vc .panel .sync{display:none;width:90%}
+    .no-img .vc .panel .sync{display:block}
+
+    @media (max-width:860px){
+      .vc .inner{grid-template-columns:1fr;padding-top:8px}
+      .vc .panel{order:-1;min-height:46svh}
+    }
+
+    /* Mockup switcher (not part of the design) */
+    .mock{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:60;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:calc(100vw - 32px);padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.35);font:500 12px/1 var(--mono)}
+    .mock button{min-height:36px;padding:0 12px;border:0;border-radius:999px;background:none;color:var(--muted);font:inherit;cursor:pointer;white-space:nowrap}
+    .mock button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+    .mock .sep{width:1px;background:var(--line);margin:4px 2px}
+    @media (max-width:480px){.mock .long{display:none}.mock{flex-wrap:nowrap;border-radius:18px}.mock button{padding:0 14px}}
+    @media (prefers-reduced-motion:reduce){.scroll-cue svg{animation:none}}
+  </style>
+</head>
+<body class="has-img" data-v="a">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../../" aria-label="Sabins Sound home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="var(--surface)" stroke="var(--line)"/><g fill="var(--fg)"><rect x="6" y="13" width="2.5" height="6" rx="1"/><rect x="10.5" y="10" width="2.5" height="12" rx="1"/><rect x="19" y="10" width="2.5" height="12" rx="1"/><rect x="23.5" y="13" width="2.5" height="6" rx="1"/></g><rect x="14.75" y="7" width="2.5" height="18" rx="1" fill="var(--accent)"/></svg>
+        <span>Sabins <b>Sound</b></span>
+      </a>
+      <nav aria-label="Main">
+        <a href="../../tools/">Tools</a>
+        <a href="../../#libraries">Libraries</a>
+        <a href="../../#about">About</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- A: full-bleed image -->
+    <section class="splash v va" aria-label="Option A">
+      <div class="img" aria-hidden="true"></div>
+      <span class="img-badge">Placeholder image</span>
+      <div class="wrap inner">
+        <h1>Tools and sound libraries<span class="slash">.</span></h1>
+        <p class="lead">Made by Jay Sabins, game sound designer.</p>
+        <div class="cta">
+          <a class="btn btn-primary btn-lg" href="../../tools/rigsync/">Get RigSync</a>
+          <a class="btn btn-ghost btn-lg" href="../../tools/">Browse tools</a>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#next" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+    </section>
+
+    <!-- B: wordmark over waveform -->
+    <section class="splash v vb" aria-label="Option B">
+      <div class="img" aria-hidden="true"></div>
+      <span class="img-badge">Placeholder image</span>
+      <div class="wave" aria-hidden="true"></div>
+      <div class="wrap inner">
+        <h1 class="word">Sabins <b>Sound</b><span class="slash">.</span></h1>
+        <p class="lead">Tools and sound libraries by Jay Sabins, game sound designer.</p>
+        <div class="cta">
+          <a class="btn btn-primary btn-lg" href="../../tools/rigsync/">Get RigSync</a>
+          <a class="btn btn-ghost btn-lg" href="../../tools/">Browse tools</a>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#next" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+    </section>
+
+    <!-- C: split -->
+    <section class="splash v vc" aria-label="Option C">
+      <div class="wrap inner">
+        <div>
+          <h1>Tools and sound libraries<span class="slash">.</span></h1>
+          <p class="lead">Made by Jay Sabins, game sound designer.</p>
+          <div class="cta">
+            <a class="btn btn-primary btn-lg" href="../../tools/rigsync/">Get RigSync</a>
+            <a class="btn btn-ghost btn-lg" href="../../tools/">Browse tools</a>
+          </div>
+        </div>
+        <div class="panel" aria-hidden="true">
+          <span class="img-badge">Placeholder image</span>
+          <svg class="sync" viewBox="0 0 520 320">
+            <path id="m-a" class="line" d="M120 220 C 120 120, 200 80, 260 80"/>
+            <path id="m-b" class="line" d="M260 80 C 320 80, 400 120, 400 220"/>
+            <circle class="pkt" r="5"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#m-a"/></animateMotion></circle>
+            <circle class="pkt" r="5"><animateMotion dur="2.6s" begin="-1.3s" repeatCount="indefinite"><mpath href="#m-b"/></animateMotion></circle>
+            <g transform="translate(212 34)"><rect class="hub" width="96" height="92" rx="14"/><path class="icon" d="M38 34h20M38 46h20M38 58h12M32 24h32v44H32z"/></g>
+            <text class="lbl lbl-hub" x="260" y="22" text-anchor="middle">your private GitHub repo</text>
+            <g transform="translate(40 206)"><rect class="node" width="160" height="96" rx="10"/><rect class="screen" x="10" y="10" width="140" height="76" rx="5"/><rect class="bar on" x="20" y="22" width="70" height="8" rx="2"/><rect class="bar" x="20" y="38" width="110" height="8" rx="2"/><rect class="bar on" x="44" y="54" width="54" height="8" rx="2"/></g>
+            <g transform="translate(320 206)"><rect class="node" width="160" height="96" rx="10"/><rect class="screen" x="10" y="10" width="140" height="76" rx="5"/><rect class="bar on" x="20" y="22" width="70" height="8" rx="2"/><rect class="bar" x="20" y="38" width="110" height="8" rx="2"/><rect class="bar on" x="44" y="54" width="54" height="8" rx="2"/></g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- What comes after the splash, so the scroll feels real -->
+    <section class="section wrap" id="next" aria-labelledby="tools-h">
+      <h2 id="tools-h">Tools <span class="slash">/</span></h2>
+      <a class="card feature" href="../../tools/rigsync/">
+        <div class="card-body" style="padding:0">
+          <h3>RigSync</h3>
+          <p class="desc">Keeps your REAPER setup identical on every computer by syncing it through your own private GitHub repo.</p>
+          <span class="card-link">See RigSync →</span>
+        </div>
+      </a>
+    </section>
+    <div style="height:120px"></div>
+  </main>
+
+  <div class="mock" role="group" aria-label="Mockup options">
+    <button type="button" data-set-v="a">A<span class="long"> · Full image</span></button>
+    <button type="button" data-set-v="b">B<span class="long"> · Wordmark</span></button>
+    <button type="button" data-set-v="c">C<span class="long"> · Split</span></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button type="button" data-img>Image</button>
+  </div>
+
+  <script src="../../js/site.js"></script>
+  <script>
+    // Mockup switcher: ?v=a|b|c and ?img=0|1 so each option has its own link
+    (() => {
+      const q = new URLSearchParams(location.search), body = document.body;
+      let v = /^[abc]$/.test(q.get("v")) ? q.get("v") : "a", img = q.get("img") !== "0";
+      const render = () => {
+        body.dataset.v = v;
+        body.classList.toggle("has-img", img);
+        body.classList.toggle("no-img", !img);
+        document.querySelectorAll("[data-set-v]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.setV === v)));
+        const ib = document.querySelector("[data-img]");
+        ib.setAttribute("aria-pressed", String(img));
+        ib.textContent = img ? "Image: on" : "Image: off";
+        history.replaceState(null, "", `?v=${v}&img=${img ? 1 : 0}`);
+      };
+      document.querySelectorAll("[data-set-v]").forEach((b) => b.addEventListener("click", () => { v = b.dataset.setV; render(); }));
+      document.querySelector("[data-img]").addEventListener("click", () => { img = !img; render(); });
+      render();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <!-- Placeholder hero image: abstract jade light over dark. Swap for a real photo (assets/hero/hero.jpg). -->
+  <defs>
+    <radialGradient id="g1" cx="72%" cy="38%" r="55%"><stop offset="0" stop-color="#3fc48a" stop-opacity=".55"/><stop offset=".45" stop-color="#1d6b52" stop-opacity=".25"/><stop offset="1" stop-color="#0d1117" stop-opacity="0"/></radialGradient>
+    <radialGradient id="g2" cx="18%" cy="85%" r="45%"><stop offset="0" stop-color="#3a9fb8" stop-opacity=".35"/><stop offset="1" stop-color="#0d1117" stop-opacity="0"/></radialGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1016"/><stop offset="1" stop-color="#121a22"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#g1)"/>
+  <rect width="1920" height="1080" fill="url(#g2)"/>
+  <g fill="none" stroke="#3fc48a" stroke-linecap="round" filter="url(#blur)">
+    <path stroke-opacity=".55" stroke-width="3" d="M0 640 C 240 520, 420 760, 660 640 S 1080 500, 1320 620 S 1720 760, 1920 600"/>
+    <path stroke-opacity=".35" stroke-width="2" d="M0 690 C 260 600, 440 800, 700 690 S 1100 560, 1340 670 S 1740 800, 1920 650"/>
+    <path stroke-opacity=".2" stroke-width="2" d="M0 590 C 220 460, 400 700, 640 590 S 1060 440, 1300 570 S 1700 720, 1920 550"/>
+    <path stroke-opacity=".12" stroke-width="1.5" d="M0 740 C 280 660, 460 840, 720 740 S 1120 620, 1360 720 S 1760 840, 1920 700"/>
+  </g>
+</svg>

@@ -48,7 +48,7 @@ jobs:
             printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
           else
             cp -r live/. _site/
-            rm -rf _site/.git _site/.github _site/holding _site/*.md
+            rm -rf _site/.git _site/.github _site/holding _site/mockups _site/*.md  # mockups are staging-only
             # No staging line here: listing it would publish the hidden address. Staging pages carry noindex instead.
             printf 'User-agent: *\nAllow: /\n' > _site/robots.txt
           fi
