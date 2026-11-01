@@ -14,6 +14,32 @@
 
   // Header gets a hairline once the page scrolls
   const header = document.querySelector(".site-header");
+
+  // Phone menu: a hamburger button that opens the nav as a dropdown (CSS shows it at <=760px).
+  // Built here so pages without JS still get the plain nav links.
+  const nav = header && header.querySelector("nav");
+  if (nav) {
+    nav.id = nav.id || "site-nav";
+    const btn = document.createElement("button");
+    btn.className = "menu-toggle";
+    btn.type = "button";
+    btn.setAttribute("aria-controls", nav.id);
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "Menu");
+    btn.innerHTML = '<span></span><span></span><span></span>';
+    nav.before(btn);
+    header.classList.add("has-menu");
+    const setOpen = (open) => {
+      header.classList.toggle("menu-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+    };
+    btn.addEventListener("click", () => setOpen(!header.classList.contains("menu-open")));
+    nav.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
+    addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && header.classList.contains("menu-open")) { setOpen(false); btn.focus(); }
+    });
+    document.addEventListener("click", (e) => { if (!header.contains(e.target)) setOpen(false); });
+  }
   if (header) {
     const onScroll = () => header.classList.toggle("scrolled", scrollY > 8);
     addEventListener("scroll", onScroll, { passive: true });

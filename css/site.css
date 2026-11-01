@@ -24,6 +24,22 @@ nav{display:flex;flex-wrap:wrap;gap:4px 22px}
 nav a{font-size:14px;padding:6px 0;transition:color .15s,text-shadow .15s}
 nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);text-shadow:var(--glow-text)}
 
+/* Phone menu (button built by js/site.js) */
+.menu-toggle{display:none;width:44px;height:44px;margin-right:-10px;padding:0;background:none;border:0;border-radius:var(--radius-sm);cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.menu-toggle span{display:block;width:22px;height:2px;border-radius:2px;background:var(--fg);transition:transform .2s,opacity .2s,background .2s}
+.menu-open .menu-toggle span{background:var(--accent);box-shadow:var(--glow-box)}
+.menu-open .menu-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .menu-toggle span:nth-child(2){opacity:0}
+.menu-open .menu-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:760px){
+  .site-header.has-menu .wrap{flex-wrap:nowrap;position:relative}
+  .has-menu .menu-toggle{display:flex}
+  .has-menu nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:8px var(--gutter) 16px;background:var(--bg);border-bottom:1px solid var(--line)}
+  .has-menu.menu-open nav{display:flex}
+  .has-menu nav a{padding:14px 0;font-size:18px;border-top:1px solid var(--line)}
+  .has-menu nav a:first-child{border-top:0}
+}
+
 /* Hero */
 .hero{position:relative;padding-top:clamp(56px,10vw,128px);padding-bottom:clamp(56px,8vw,104px);overflow:hidden}
 .eyebrow{margin:0 0 18px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
@@ -137,6 +153,7 @@ a.card:hover .card-link{text-decoration:underline}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .wave span{animation:none;transform:scaleY(.6)}
+  .menu-toggle span{transition:none}
   .sync .pkt{display:none}
   a.card,.btn{transform:none!important;transition:none}
   .reveal{opacity:1;transform:none;transition:none}
