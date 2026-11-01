@@ -106,6 +106,13 @@ a.card:hover .card-link{text-decoration:underline}
 .btn-lg{min-height:56px;padding:0 28px;font-size:16px}
 
 
+/* Sections waiting on content: shown on previews (staging, local), hidden on the live site until filled. See js/site.js. */
+.todo-section{display:none}
+.preview .todo-section{display:block}
+.preview dl.todo-section{display:grid}
+.preview-only{display:none!important}
+.preview .preview-only{display:revert!important}
+
 /* Footer */
 .site-footer{margin-top:var(--section-gap);border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 .site-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:28px;padding-bottom:28px}
