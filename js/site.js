@@ -22,7 +22,7 @@
 
   // Waveform bars behind the hero: a smooth, fixed shape (no randomness, so it looks the same every load)
   document.querySelectorAll(".wave").forEach((wave) => {
-    const n = innerWidth < 600 ? 36 : 72;
+    const n = 72;
     wave.innerHTML = Array.from({ length: n }, (_, i) => {
       const t = i / (n - 1);
       const h = 0.18 + 0.82 * Math.abs(Math.sin(t * Math.PI * 3.1) * Math.sin(t * Math.PI) * (0.65 + 0.35 * Math.cos(t * 17)));
