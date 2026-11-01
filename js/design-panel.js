@@ -27,7 +27,7 @@
     ["Ubuntu Mono", "400;700"],
   ];
   const weights = Object.fromEntries([...sans, ...monos]);
-  const loaded = new Set(["Sora", "Fira Code"]);
+  const loaded = new Set(["Work Sans", "Chakra Petch"]);
   const loadFont = (f) => {
     if (loaded.has(f) || !weights[f]) return;
     loaded.add(f);

@@ -84,7 +84,7 @@
   if (splash && !live) {
     const img = splash.querySelector(".splash-img");
     const base = "assets/hero/"; // the splash only lives on the home page
-    const opts = [["placeholder", "Placeholder"], ["pixel-sunset", "Pixel sunset"], ["pixel-night", "Pixel night"], ["vista-dusk", "Vista dusk"], ["vista-valley", "Vista valley"]];
+    const opts = [["vista-valley", "Valley"], ["valley-dawn", "Dawn"], ["valley-night", "Night"], ["valley-mist", "Mist"], ["valley-twilight", "Twilight"]];
     const pick = document.createElement("div");
     pick.className = "hero-pick";
     pick.setAttribute("role", "group");
@@ -98,7 +98,7 @@
     };
     pick.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) set(b.dataset.k, true); });
     let saved = null; try { saved = localStorage.getItem("hero-img"); } catch {}
-    set(opts.some(([k]) => k === saved) ? saved : "placeholder", false);
+    set(opts.some(([k]) => k === saved) ? saved : "vista-valley", false);
   }
 
   // Waveform bars behind the hero: a smooth, fixed shape (no randomness, so it looks the same every load)
