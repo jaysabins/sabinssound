@@ -5,7 +5,7 @@ Business site for Sabins Sound (Jay Sabins): tools and sound libraries. Sister s
 ## Rules
 
 - Plain HTML/CSS/JS, no build step, no dependencies. GitHub Pages only, $0. No Netlify/Cloudflare/paid services.
-- Never invent claims, numbers, features, testimonials, prices, versions, or credits. Leave a `class="todo"` callout (shown on previews only) and ask Jay.
+- Never invent claims, numbers, features, testimonials, prices, versions, or credits. Leave an `<!-- TODO: ... -->` HTML comment, list it in the README, and ask Jay. No visible TODO boxes on any page, staging included (Jay's call, 2026-11-01).
 - No "LLC" in copy unless Jay says otherwise.
 - Repo is public, including history. Commit only what Jay has cleared.
 - Branches: work on `staging` (deploys to the secret `/<STAGING_PATH>/` folder, noindex). `main` is live and changes only through a PR Jay approves.

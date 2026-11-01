@@ -105,16 +105,6 @@ a.card:hover .card-link{text-decoration:underline}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 .btn-lg{min-height:56px;padding:0 28px;font-size:16px}
 
-/* TODO callouts: shown only on previews (staging, local), never on the live site. See js/site.js. */
-.todo{display:none;margin:0 0 16px;padding:14px 16px;border:1px dashed #f2b544;border-radius:var(--radius-sm);background:color-mix(in srgb,#f2b544 7%,transparent);font:400 13px/1.55 var(--mono);color:#f5d9a1}
-.todo::before{content:"TODO  ";font-weight:600;color:#f2b544}
-.todo-section{display:none}
-.preview .todo{display:block}
-.preview .todo-section{display:block}
-.preview dl.todo-section{display:grid}
-.preview-only{display:none!important}
-.preview .preview-only{display:revert!important}
-.preview span.todo,.preview .chips .todo{display:inline-block;margin:0}
 
 /* Footer */
 .site-footer{margin-top:var(--section-gap);border-top:1px solid var(--line);font-size:13px;color:var(--muted)}

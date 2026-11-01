@@ -14,7 +14,11 @@ Sabins Sound: tools and sound libraries by Jay Sabins. Static HTML/CSS/JS, no bu
 
 Content is plain HTML in each page. Shared styles are `css/tokens.css` (colors, fonts, spacing, same as jaysabinsaudio.com) and `css/site.css`. `js/site.js` handles motion and preview mode.
 
-Search for `TODO` to see what's still missing. Anything marked `class="todo"` (amber dashed box) or `todo-section` only shows on previews (staging and local), never on the live site, so placeholders can't leak to visitors.
+Missing details are tracked as `<!-- TODO: ... -->` comments in the HTML (search for `TODO`), never shown on the page. Still needed from Jay:
+
+- Site: tagline / one-line pitch, sound libraries to list, services (if any), business contact email, logo or wordmark preference, OG image.
+- RigSync: price or free, current version, system requirements, license, screenshots or demo video, setup steps, FAQ and support contact.
+- Tools page: intro line (optional), other tools to list.
 
 `js/design-panel.js` is the design-time panel (bottom-right dot on previews): accent, glow, background, card color, fonts. Delete it and its `<script>` tags before launch, once values are set in `tokens.css`.
 
