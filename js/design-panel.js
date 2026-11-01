@@ -106,14 +106,18 @@
   let state = { ...defaults };
 
   function render(save) {
-    root.style.setProperty("--accent", state.accent);
-    root.style.setProperty("--accent-ink", contrast(state.accent, state.bg) >= contrast(state.accent, "#ffffff") ? state.bg : "#ffffff");
-    root.style.setProperty("--glow", String(state.glow));
-    root.style.setProperty("--bg", state.bg);
-    root.style.setProperty("--surface", state.surface);
+    // Only override a token when it differs from the page's own value, so the light/dark switch still works.
+    const set = (k, v, d) => (v === d ? root.style.removeProperty(k) : root.style.setProperty(k, v));
+    set("--accent", state.accent, defaults.accent);
+    if (state.accent === defaults.accent && state.bg === defaults.bg) root.style.removeProperty("--accent-ink");
+    else root.style.setProperty("--accent-ink", contrast(state.accent, state.bg) >= contrast(state.accent, "#ffffff") ? state.bg : "#ffffff");
+    set("--glow", String(state.glow), String(defaults.glow));
+    set("--bg", state.bg, defaults.bg);
+    set("--surface", state.surface, defaults.surface);
     ["title", "body", "mono"].forEach((k) => {
       loadFont(state[k]);
-      root.style.setProperty(`--${k}`, `"${state[k]}", ${fallback(state[k])}`);
+      if (state[k] === defaults[k]) root.style.removeProperty(`--${k}`);
+      else root.style.setProperty(`--${k}`, `"${state[k]}", ${fallback(state[k])}`);
       field(k).value = state[k];
     });
     field("accent").value = state.accent;

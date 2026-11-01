@@ -1,4 +1,4 @@
-/* Design tokens, shared with jaysabinsaudio.com (direction 6A, Oct 2026). Dark, single theme. */
+/* Design tokens, shared with jaysabinsaudio.com (direction 6A, Oct 2026). Dark by default; light theme below. */
 :root{
   /* Palette */
   --bg:#0d1117; --surface:#151b23; --raise:color-mix(in srgb, var(--surface), #fff 5%);
@@ -21,4 +21,15 @@
   --section-gap:64px;
   --gutter:clamp(16px, 3vw, 40px);
   --max:1440px;
+}
+
+/* Light theme: set by the sun/moon switch in the header (js/site.js), saved per visitor.
+   Jade is darkened so accent text keeps contrast on white; glow is softer. */
+:root[data-theme="light"]{
+  --bg:#f5f6f7; --surface:#ffffff; --raise:color-mix(in srgb, var(--surface), #000 4%);
+  --fg:#0d1117; --muted:#555b64; --line:#d9dde2;
+  --accent:#16875a;
+  --accent-ink:#ffffff;
+  --glow:0.3;
+  color-scheme:light;
 }

@@ -40,6 +40,28 @@
     });
     document.addEventListener("click", (e) => { if (!header.contains(e.target)) setOpen(false); });
   }
+  // Light/dark switch in the header: shows a moon in dark mode and a sun in light mode.
+  // The choice is saved per visitor; a tiny script in each page's <head> applies it before paint.
+  if (header) {
+    const KEY = "theme";
+    const moon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>';
+    const sun = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+    const tbtn = document.createElement("button");
+    tbtn.className = "theme-toggle";
+    tbtn.type = "button";
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const apply = (light, save) => {
+      if (light) root.dataset.theme = "light"; else delete root.dataset.theme;
+      tbtn.innerHTML = light ? sun : moon;
+      tbtn.setAttribute("aria-label", light ? "Light mode on. Switch to dark mode" : "Dark mode on. Switch to light mode");
+      tbtn.title = light ? "Switch to dark mode" : "Switch to light mode";
+      if (meta) meta.content = getComputedStyle(root).getPropertyValue("--bg").trim() || meta.content;
+      if (save) try { localStorage.setItem(KEY, light ? "light" : "dark"); } catch {}
+    };
+    apply(root.dataset.theme === "light", false);
+    tbtn.addEventListener("click", () => apply(root.dataset.theme !== "light", true));
+    header.querySelector(".wrap").append(tbtn);
+  }
   if (header) {
     const onScroll = () => header.classList.toggle("scrolled", scrollY > 8);
     addEventListener("scroll", onScroll, { passive: true });
@@ -82,7 +104,7 @@
 
   // Content fades and rises in as it scrolls into view, once, staggered
   if (!reduced && "IntersectionObserver" in window) {
-    const els = document.querySelectorAll("main .section > h2, main .grid > li, main .feature, main .specs, main .band, main .prose");
+    const els = document.querySelectorAll("main .section > h2, main .grid > li, main .feature, main .specs, main .band, main .prose, main .about");
     const io = new IntersectionObserver((entries) => {
       entries.filter((e) => e.isIntersecting).forEach((e, n) => {
         e.target.style.transitionDelay = `${n * 80}ms`;
