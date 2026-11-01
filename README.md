@@ -24,7 +24,7 @@ Missing details are tracked as `<!-- TODO: ... -->` comments in the HTML (search
 
 ## Hero image
 
-The home splash image is set inline on `.splash-img` in `index.html`. Options live in `assets/hero/` (original SVG art). Jay narrowed it to Vista valley; the staging picker cycles it and its variations (`valley-dawn`, `valley-night`, `valley-mist`, `valley-twilight`). Earlier options (`pixel-sunset`, `pixel-night`, `vista-dusk`, `placeholder`) are still in the folder. On staging, the picker on the splash lets you try each one; it never shows on the live site. Once one is chosen, set it in `index.html` and delete the picker block in `js/site.js` and the unused images.
+The home splash image is set inline on `.splash-img` in `index.html`. Options live in `assets/hero/` (original SVG art). Jay wants the valley as 8-bit pixel art; the staging picker cycles `valley-8bit-night` (default), `-dawn`, `-twilight`, `-mist`, plus the smooth `vista-valley` for comparison. Smooth variations (`valley-dawn` etc.) are also in the folder. Earlier options (`pixel-sunset`, `pixel-night`, `vista-dusk`, `placeholder`) are still in the folder. On staging, the picker on the splash lets you try each one; it never shows on the live site. Once one is chosen, set it in `index.html` and delete the picker block in `js/site.js` and the unused images.
 
 ## Local preview
 

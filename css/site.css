@@ -54,7 +54,7 @@ nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);t
 
 /* Full-screen splash (home). Text stays light in both themes because it sits on the image. */
 .splash{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;color:#e9eaec}
-.splash-img{position:absolute;inset:0;z-index:-1;background:#0d1117 center/cover no-repeat}
+.splash-img{position:absolute;inset:0;z-index:-1;background:#0d1117 center/cover no-repeat;image-rendering:pixelated}
 .splash-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,.5) 0%,rgba(13,17,23,0) 22%,rgba(13,17,23,.2) 50%,rgba(13,17,23,.9) 90%,var(--bg) 100%)}
 [data-theme="light"] .splash-img::after{background:linear-gradient(180deg,rgba(13,17,23,.5) 0%,rgba(13,17,23,0) 22%,rgba(13,17,23,.2) 50%,rgba(13,17,23,.9) 100%)}
 .splash-inner{width:100%;padding-top:120px;padding-bottom:clamp(88px,13vh,140px)}
