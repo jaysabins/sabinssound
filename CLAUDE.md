@@ -9,6 +9,7 @@ Business site for Sabins Sound (Jay Sabins): tools and sound libraries. Sister s
 - No "LLC" in copy unless Jay says otherwise.
 - Repo is public, including history. Commit only what Jay has cleared.
 - Branches: work on `staging` (deploys to the secret `/<STAGING_PATH>/` folder, noindex). `main` is live and changes only through a PR Jay approves.
+- Product cards (home, tools index) have no platform/tag line above the title. Jay asked for that on 2026-11-01.
 - Keep all paths relative (except `404.html`) so pages work at `/`, in the staging folder, and so `tools/` could later move to tools.sabinssound.com.
 
 ## Design
