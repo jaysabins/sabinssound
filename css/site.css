@@ -52,6 +52,43 @@ nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);t
   .has-menu nav a:first-child{border-top:0}
 }
 
+/* Full-screen splash (home). Text stays light in both themes because it sits on the image. */
+.splash{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;color:#e9eaec}
+.splash-img{position:absolute;inset:0;z-index:-1;background:#0d1117 center/cover no-repeat}
+.splash-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,.5) 0%,rgba(13,17,23,0) 22%,rgba(13,17,23,.2) 50%,rgba(13,17,23,.9) 90%,var(--bg) 100%)}
+[data-theme="light"] .splash-img::after{background:linear-gradient(180deg,rgba(13,17,23,.5) 0%,rgba(13,17,23,0) 22%,rgba(13,17,23,.2) 50%,rgba(13,17,23,.9) 100%)}
+.splash-inner{width:100%;padding-top:120px;padding-bottom:clamp(88px,13vh,140px)}
+.splash h1{margin:0;max-width:14ch;font:300 clamp(44px,8vw,120px)/.98 var(--title);letter-spacing:-.045em;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.splash .lead{color:#c9ccd1}
+.splash .slash{color:#3fc48a}
+.splash .btn-primary{background:#3fc48a;color:#0d1117}
+.splash .btn-ghost{color:#e9eaec;border-color:rgba(233,234,236,.4);background:rgba(13,17,23,.25)}
+.splash .btn-ghost:hover{border-color:#3fc48a;color:#3fc48a}
+.scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:grid;place-items:center;width:44px;height:44px;border-radius:50%}
+.scroll-cue svg{width:26px;height:26px;fill:none;stroke:#e9eaec;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* Header over the splash: fixed and see-through at the top, turning solid as you scroll (--solid set by js/site.js) */
+.has-splash .site-header{position:fixed;left:0;right:0}
+.has-splash .site-header::before{opacity:var(--solid,0)}
+.has-splash .site-header.scrolled{border-bottom-color:color-mix(in srgb,var(--line) calc(var(--solid,0) * 100%),transparent)}
+.has-splash .site-header.on-image{color:#e9eaec}
+.has-splash .site-header.on-image .brand-mark rect:first-child{fill:rgba(13,17,23,.35);stroke:rgba(233,234,236,.35)}
+.has-splash .site-header.on-image .brand-mark g{fill:#e9eaec}
+.has-splash .site-header.on-image .theme-toggle{color:#e9eaec}
+.has-splash .site-header.on-image .menu-toggle span{background:#e9eaec}
+.has-splash .site-header.on-image.menu-open .menu-toggle span{background:var(--accent)}
+.has-splash .site-header.on-image nav a{text-shadow:0 1px 8px rgba(0,0,0,.4)}
+@media (max-width:760px){
+  .has-splash .site-header.on-image nav a{color:var(--fg);text-shadow:none}
+  .has-splash .site-header.on-image nav a[aria-current="page"]{color:var(--accent)}
+}
+
+/* Hero image picker: previews only, for choosing the splash image */
+.hero-pick{position:absolute;right:var(--gutter);top:84px;z-index:2;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:calc(100% - 2 * var(--gutter) - 56px);padding:6px;background:rgba(13,17,23,.7);border:1px solid rgba(233,234,236,.2);border-radius:18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font:500 12px/1 var(--mono)}
+.hero-pick button{min-height:32px;padding:0 12px;border:0;border-radius:999px;background:none;color:#c9ccd1;font:inherit;cursor:pointer;white-space:nowrap}
+.hero-pick button[aria-pressed="true"]{background:#3fc48a;color:#0d1117}
+
 /* Hero */
 .hero{position:relative;padding-top:clamp(56px,10vw,128px);padding-bottom:clamp(56px,8vw,104px);overflow:hidden}
 .eyebrow{margin:0 0 18px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
@@ -168,6 +205,9 @@ a.card:hover .card-link{text-decoration:underline}
 @media (max-width:760px){
   .wave{display:none}
 }
+@media (max-width:760px){
+  .hero-pick{left:var(--gutter);right:auto;top:76px;justify-content:flex-start;max-width:calc(100% - 2 * var(--gutter))}
+}
 @media (max-width:480px){
   .cta .btn{flex:1 1 100%;justify-content:center}
 }
@@ -175,6 +215,7 @@ a.card:hover .card-link{text-decoration:underline}
   html{scroll-behavior:auto}
   .wave span{animation:none;transform:scaleY(.6)}
   .menu-toggle span,.has-menu nav{transition:none!important}
+  .scroll-cue svg{animation:none}
   .sync .pkt{display:none}
   a.card,.btn{transform:none!important;transition:none}
   .reveal{opacity:1;transform:none;transition:none}

@@ -4,7 +4,7 @@ Sabins Sound: tools and sound libraries by Jay Sabins. Static HTML/CSS/JS, no bu
 
 ## Pages
 
-- `index.html`: home (hero, featured tool, and placeholder sections for libraries, services, contact).
+- `index.html`: home (full-screen splash with image, featured tool, about, and placeholder sections for libraries, services, contact).
 - `tools/index.html`: all tools.
 - `tools/rigsync/index.html`: RigSync product page.
 - `404.html`: not-found page (absolute links, because it's served at any path).
@@ -21,6 +21,10 @@ Missing details are tracked as `<!-- TODO: ... -->` comments in the HTML (search
 - Tools page: intro line (optional), other tools to list.
 
 `js/design-panel.js` is the design-time panel (bottom-right dot on previews): accent, glow, background, card color, fonts. Delete it and its `<script>` tags before launch, once values are set in `tokens.css`.
+
+## Hero image
+
+The home splash image is set inline on `.splash-img` in `index.html`. Options live in `assets/hero/` (original SVG art: `pixel-sunset`, `pixel-night`, `vista-dusk`, `vista-valley`, plus `placeholder`). On staging, a picker on the splash lets you try each one; it never shows on the live site. Once one is chosen, set it in `index.html` and delete the picker block in `js/site.js` and the unused images.
 
 ## Local preview
 

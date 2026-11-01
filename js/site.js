@@ -62,10 +62,43 @@
     tbtn.addEventListener("click", () => apply(root.dataset.theme !== "light", true));
     header.querySelector(".wrap").append(tbtn);
   }
+  // Over a full-screen splash the header starts see-through and turns solid as you scroll:
+  // --solid goes 0 -> 1 across the first ~60% of the splash. Elsewhere it's solid with a hairline.
+  const splash = document.querySelector(".splash");
+  if (splash) document.body.classList.add("has-splash");
   if (header) {
-    const onScroll = () => header.classList.toggle("scrolled", scrollY > 8);
+    const onScroll = () => {
+      header.classList.toggle("scrolled", scrollY > 8);
+      if (!splash) return;
+      const span = Math.max(1, splash.offsetHeight * 0.6 - header.offsetHeight);
+      const solid = Math.min(1, Math.max(0, scrollY / span));
+      header.style.setProperty("--solid", solid.toFixed(3));
+      header.classList.toggle("on-image", solid < 0.5);
+    };
     addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll);
     onScroll();
+  }
+
+  // Previews only: a picker on the splash to try the hero images in assets/hero/. Remove once one is chosen.
+  if (splash && !live) {
+    const img = splash.querySelector(".splash-img");
+    const base = "assets/hero/"; // the splash only lives on the home page
+    const opts = [["placeholder", "Placeholder"], ["pixel-sunset", "Pixel sunset"], ["pixel-night", "Pixel night"], ["vista-dusk", "Vista dusk"], ["vista-valley", "Vista valley"]];
+    const pick = document.createElement("div");
+    pick.className = "hero-pick";
+    pick.setAttribute("role", "group");
+    pick.setAttribute("aria-label", "Try hero images (staging only)");
+    pick.innerHTML = opts.map(([k, l]) => `<button type="button" data-k="${k}">${l}</button>`).join("");
+    splash.append(pick);
+    const set = (k, save) => {
+      img.style.backgroundImage = `url("${base}${k}.svg")`;
+      pick.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.k === k)));
+      if (save) try { localStorage.setItem("hero-img", k); } catch {}
+    };
+    pick.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) set(b.dataset.k, true); });
+    let saved = null; try { saved = localStorage.getItem("hero-img"); } catch {}
+    set(opts.some(([k]) => k === saved) ? saved : "placeholder", false);
   }
 
   // Waveform bars behind the hero: a smooth, fixed shape (no randomness, so it looks the same every load)
