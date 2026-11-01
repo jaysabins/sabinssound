@@ -54,7 +54,7 @@ nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);t
 
 /* Full-screen splash (home). Text stays light in both themes because it sits on the image. */
 .splash{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate;color:#e9eaec}
-.splash-img{position:absolute;inset:0;z-index:-1;background:#0d1117 center/cover no-repeat;image-rendering:pixelated}
+.splash-img{position:absolute;inset:0;z-index:-1;background:#0d1117 center/cover no-repeat}
 .splash-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,.5) 0%,rgba(13,17,23,0) 22%,rgba(13,17,23,.2) 50%,rgba(13,17,23,.9) 90%,var(--bg) 100%)}
 [data-theme="light"] .splash-img::after{background:linear-gradient(180deg,rgba(13,17,23,.5) 0%,rgba(13,17,23,0) 22%,rgba(13,17,23,.2) 50%,rgba(13,17,23,.9) 100%)}
 .splash-inner{width:100%;padding-top:120px;padding-bottom:clamp(88px,13vh,140px)}
@@ -83,11 +83,6 @@ nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);t
   .has-splash .site-header.on-image nav a{color:var(--fg);text-shadow:none}
   .has-splash .site-header.on-image nav a[aria-current="page"]{color:var(--accent)}
 }
-
-/* Hero image picker: previews only, for choosing the splash image */
-.hero-pick{position:absolute;right:var(--gutter);top:84px;z-index:2;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:calc(100% - 2 * var(--gutter) - 56px);padding:6px;background:rgba(13,17,23,.7);border:1px solid rgba(233,234,236,.2);border-radius:18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font:500 12px/1 var(--mono)}
-.hero-pick button{min-height:32px;padding:0 12px;border:0;border-radius:999px;background:none;color:#c9ccd1;font:inherit;cursor:pointer;white-space:nowrap}
-.hero-pick button[aria-pressed="true"]{background:#3fc48a;color:#0d1117}
 
 /* Hero */
 .hero{position:relative;padding-top:clamp(56px,10vw,128px);padding-bottom:clamp(56px,8vw,104px);overflow:hidden}
@@ -204,9 +199,6 @@ a.card:hover .card-link{text-decoration:underline}
 /* No moving meters on phones */
 @media (max-width:760px){
   .wave{display:none}
-}
-@media (max-width:760px){
-  .hero-pick{left:var(--gutter);right:auto;top:76px;justify-content:flex-start;max-width:calc(100% - 2 * var(--gutter))}
 }
 @media (max-width:480px){
   .cta .btn{flex:1 1 100%;justify-content:center}

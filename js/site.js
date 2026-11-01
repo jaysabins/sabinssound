@@ -80,26 +80,6 @@
     onScroll();
   }
 
-  // Previews only: a picker on the splash to try the hero images in assets/hero/. Remove once one is chosen.
-  if (splash && !live) {
-    const img = splash.querySelector(".splash-img");
-    const base = "assets/hero/"; // the splash only lives on the home page
-    const opts = [["valley-8bit-night", "Night"], ["valley-8bit-dawn", "Dawn"], ["valley-8bit-twilight", "Twilight"], ["valley-8bit-mist", "Mist"], ["vista-valley", "Smooth (old)"]];
-    const pick = document.createElement("div");
-    pick.className = "hero-pick";
-    pick.setAttribute("role", "group");
-    pick.setAttribute("aria-label", "Try hero images (staging only)");
-    pick.innerHTML = opts.map(([k, l]) => `<button type="button" data-k="${k}">${l}</button>`).join("");
-    splash.append(pick);
-    const set = (k, save) => {
-      img.style.backgroundImage = `url("${base}${k}.svg")`;
-      pick.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.k === k)));
-      if (save) try { localStorage.setItem("hero-img", k); } catch {}
-    };
-    pick.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) set(b.dataset.k, true); });
-    let saved = null; try { saved = localStorage.getItem("hero-img"); } catch {}
-    set(opts.some(([k]) => k === saved) ? saved : "valley-8bit-night", false);
-  }
 
   // Waveform bars behind the hero: a smooth, fixed shape (no randomness, so it looks the same every load)
   document.querySelectorAll(".wave").forEach((wave) => {
