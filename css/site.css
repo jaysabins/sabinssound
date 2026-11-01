@@ -68,6 +68,9 @@ nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);t
 .scroll-cue svg{width:26px;height:26px;fill:none;stroke:#e9eaec;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:cue 1.8s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
+/* Header and splash run edge to edge (with the page gutter) instead of the 1440px content column, so wide screens are filled */
+.site-header .wrap,.splash .wrap{max-width:none}
+
 /* Header over the splash: fixed and see-through at the top, turning solid as you scroll (--solid set by js/site.js) */
 .has-splash .site-header{position:fixed;left:0;right:0}
 .has-splash .site-header::before{opacity:var(--solid,0)}
