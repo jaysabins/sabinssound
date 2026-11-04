@@ -44,15 +44,24 @@
   const options = group("Sans", sans) + group("Monospace", monos);
 
   const root = document.documentElement;
-  const css = getComputedStyle(root);
-  const defaults = {
-    accent: css.getPropertyValue("--accent").trim(),
-    glow: parseFloat(css.getPropertyValue("--glow")) || 0,
-    bg: css.getPropertyValue("--bg").trim(),
-    surface: css.getPropertyValue("--surface").trim(),
-    title: first(css.getPropertyValue("--title")),
-    body: first(css.getPropertyValue("--body")),
-    mono: first(css.getPropertyValue("--mono")),
+  // Colors belong to a theme (light and dark each have their own), fonts are shared by both.
+  // Only what you actually change is saved, so the light/dark switch keeps working on every page.
+  const COLORS = ["accent", "glow", "bg", "surface"], FONTS = ["title", "body", "mono"];
+  const PROPS = ["--accent", "--accent-ink", "--glow", "--bg", "--surface", "--title", "--body", "--mono"];
+  const theme = () => (root.dataset.theme === "light" ? "light" : "dark");
+  // The page's own values for the current theme: read with this panel's overrides cleared.
+  const readDefaults = () => {
+    PROPS.forEach((k) => root.style.removeProperty(k));
+    const css = getComputedStyle(root);
+    return {
+      accent: css.getPropertyValue("--accent").trim(),
+      glow: parseFloat(css.getPropertyValue("--glow")) || 0,
+      bg: css.getPropertyValue("--bg").trim(),
+      surface: css.getPropertyValue("--surface").trim(),
+      title: first(css.getPropertyValue("--title")),
+      body: first(css.getPropertyValue("--body")),
+      mono: first(css.getPropertyValue("--mono")),
+    };
   };
 
   const lum = (hex) => {
@@ -103,21 +112,23 @@
 
   const body = panel.querySelector(".ap-body"), toggle = panel.querySelector(".ap-toggle");
   const field = (k) => panel.querySelector(`[data-k="${k}"]`);
-  let state = { ...defaults };
+  // saved = { fonts: {title?, body?, mono?}, dark: {accent?, glow?, bg?, surface?}, light: {...} }
+  let saved = { fonts: {}, dark: {}, light: {} };
+  let defaults, state;
 
-  function render(save) {
-    // Only override a token when it differs from the page's own value, so the light/dark switch still works.
-    const set = (k, v, d) => (v === d ? root.style.removeProperty(k) : root.style.setProperty(k, v));
+  function render() {
+    defaults = readDefaults();
+    state = { ...defaults, ...saved[theme()], ...saved.fonts };
+    const set = (k, v, d) => { if (v !== d) root.style.setProperty(k, v); };
     set("--accent", state.accent, defaults.accent);
-    if (state.accent === defaults.accent && state.bg === defaults.bg) root.style.removeProperty("--accent-ink");
-    else root.style.setProperty("--accent-ink", contrast(state.accent, state.bg) >= contrast(state.accent, "#ffffff") ? state.bg : "#ffffff");
+    if (state.accent !== defaults.accent || state.bg !== defaults.bg)
+      root.style.setProperty("--accent-ink", contrast(state.accent, state.bg) >= contrast(state.accent, "#ffffff") ? state.bg : "#ffffff");
     set("--glow", String(state.glow), String(defaults.glow));
     set("--bg", state.bg, defaults.bg);
     set("--surface", state.surface, defaults.surface);
-    ["title", "body", "mono"].forEach((k) => {
+    FONTS.forEach((k) => {
       loadFont(state[k]);
-      if (state[k] === defaults[k]) root.style.removeProperty(`--${k}`);
-      else root.style.setProperty(`--${k}`, `"${state[k]}", ${fallback(state[k])}`);
+      if (state[k] !== defaults[k]) root.style.setProperty(`--${k}`, `"${state[k]}", ${fallback(state[k])}`);
       field(k).value = state[k];
     });
     field("accent").value = state.accent;
@@ -127,23 +138,40 @@
     field("surface").value = state.surface;
     panel.querySelectorAll(".ap-sw").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.c === state.accent)));
     panel.querySelector(".ap-hex").textContent =
-      `accent  ${state.accent}  (${contrast(state.accent, state.bg).toFixed(1)}:1)\nglow    ${state.glow.toFixed(2)}\nbg      ${state.bg}\ncards   ${state.surface}\nheads   ${state.title}\nbody    ${state.body}\ndata    ${state.mono}`;
-    if (save) try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {}
+      `${theme()} theme\naccent  ${state.accent}  (${contrast(state.accent, state.bg).toFixed(1)}:1)\nglow    ${state.glow.toFixed(2)}\nbg      ${state.bg}\ncards   ${state.surface}\nheads   ${state.title}\nbody    ${state.body}\ndata    ${state.mono}`;
+  }
+  // Record one change (for the current theme if it's a color), save it, and redraw.
+  function change(k, v) {
+    const bucket = FONTS.includes(k) ? saved.fonts : saved[theme()];
+    if (v === defaults[k]) delete bucket[k]; else bucket[k] = v;
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch {}
+    render();
   }
 
   toggle.addEventListener("click", () => {
     body.hidden = !body.hidden;
     toggle.setAttribute("aria-expanded", String(!body.hidden));
   });
-  panel.querySelectorAll(".ap-sw").forEach((b) => b.addEventListener("click", () => { state.accent = b.dataset.c; render(true); }));
-  ["accent", "bg", "surface", "title", "body", "mono"].forEach((k) => field(k).addEventListener("input", (e) => { state[k] = e.target.value; render(true); }));
-  field("glow").addEventListener("input", (e) => { state.glow = e.target.value / 100; render(true); });
+  panel.querySelectorAll(".ap-sw").forEach((b) => b.addEventListener("click", () => change("accent", b.dataset.c)));
+  ["accent", "bg", "surface", "title", "body", "mono"].forEach((k) => field(k).addEventListener("input", (e) => change(k, e.target.value)));
+  field("glow").addEventListener("input", (e) => change("glow", e.target.value / 100));
   panel.querySelector(".ap-reset").addEventListener("click", () => {
     try { localStorage.removeItem(KEY); } catch {}
-    state = { ...defaults };
-    render(false);
+    saved = { fonts: {}, dark: {}, light: {} };
+    render();
   });
 
-  try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch {}
-  render(false);
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY) || "{}");
+    if (s.fonts || s.dark || s.light) saved = { fonts: { ...s.fonts }, dark: { ...s.dark }, light: { ...s.light } };
+    // Older saves were one flat set of values captured from whichever theme was showing,
+    // which forced dark colors onto light pages. Keep the font picks, drop the colors.
+    else FONTS.forEach((k) => { if (s[k]) saved.fonts[k] = s[k]; });
+  } catch {}
+  render();
+  // Fonts that only match the defaults aren't overrides; tidy them out of the save.
+  FONTS.forEach((k) => { if (saved.fonts[k] === defaults[k]) delete saved.fonts[k]; });
+  try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch {}
+  // Redraw when the header's light/dark switch flips the theme.
+  new MutationObserver(render).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
 })();
