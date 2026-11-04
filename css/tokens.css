@@ -1,11 +1,12 @@
-/* Design tokens. Palette from jaysabinsaudio.com (direction 6A); fonts and glow tuned by Jay, Nov 2026. Dark by default; light theme below. */
+/* Design tokens. Started from jaysabinsaudio.com (direction 6A); accent, glow and fonts set by Jay, Nov 2026. Dark by default; light theme below. */
 :root{
   /* Palette */
   --bg:#0d1117; --surface:#151b23; --raise:color-mix(in srgb, var(--surface), #fff 5%);
   --fg:#e9eaec; --muted:#a3a7ae; --line:#34383e;
-  --accent:#3fc48a;      /* play button, slashes, focus rings, links on hover */
+  --accent-dark:#3fb950; /* THE accent color (dark theme). Also used on the home splash, which stays dark in both themes. (Jay, Nov 2026) */
+  --accent:var(--accent-dark); /* play button, slashes, focus rings, links on hover; light theme overrides it below */
   --accent-ink:#0d1117;  /* icons and text on accent fills */
-  --glow:0.21;           /* neon glow strength on accent items, 0 = off, 1 = strong (Jay, Nov 2026) */
+  --glow:0.10;           /* neon glow strength on accent items, 0 = off, 1 = strong (Jay, Nov 2026) */
   --glow-color:color-mix(in srgb, var(--accent) calc(var(--glow) * 70%), transparent);
   --glow-box:0 0 calc(var(--glow) * 8px) var(--glow-color), 0 0 calc(var(--glow) * 36px) var(--glow-color);
   --glow-text:0 0 calc(var(--glow) * 4px) var(--glow-color), 0 0 calc(var(--glow) * 18px) var(--glow-color);
