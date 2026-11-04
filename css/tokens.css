@@ -3,7 +3,7 @@
   /* Palette */
   --bg:#0d1117; --surface:#151b23; --raise:color-mix(in srgb, var(--surface), #fff 5%);
   --fg:#e9eaec; --muted:#a3a7ae; --line:#34383e;
-  --accent:#3fb950;      /* play button, slashes, focus rings, links on hover. Same in light and dark (Jay, Nov 2026) */
+  --accent:#3fc48a;      /* play button, slashes, focus rings, links on hover. Same in light and dark (Jay, Nov 2026) */
   --accent-ink:#0d1117;  /* icons and text on accent fills */
   --glow:0.10;           /* neon glow strength on accent items, 0 = off, 1 = strong (Jay, Nov 2026) */
   --glow-color:color-mix(in srgb, var(--accent) calc(var(--glow) * 70%), transparent);
@@ -28,7 +28,7 @@
 :root[data-theme="light"]{
   --bg:#f5f6f7; --surface:#ffffff; --raise:color-mix(in srgb, var(--surface), #000 4%);
   --fg:#0d1117; --muted:#555b64; --line:#d9dde2;
-  --accent-ink:#0d1117;  /* text/icons on accent fills: 7.4:1 on the green */
+  --accent-ink:#0d1117;  /* text/icons on accent fills: 8.5:1 on the jade */
   --glow:0.12;
   color-scheme:light;
 }
