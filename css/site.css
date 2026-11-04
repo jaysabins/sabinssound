@@ -60,10 +60,10 @@ nav a:hover,nav a:focus-visible,nav a[aria-current="page"]{color:var(--accent);t
 .splash-inner{width:100%;padding-top:120px;padding-bottom:clamp(88px,13vh,140px)}
 .splash h1{margin:0;max-width:14ch;font:300 clamp(44px,8vw,120px)/.98 var(--title);letter-spacing:-.045em;text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .splash .lead{color:#c9ccd1}
-.splash .slash{color:var(--accent-dark)}
-.splash .btn-primary{background:var(--accent-dark);color:#0d1117}
+.splash .slash{color:var(--accent)}
+.splash .btn-primary{background:var(--accent);color:#0d1117}
 .splash .btn-ghost{color:#e9eaec;border-color:rgba(233,234,236,.4);background:rgba(13,17,23,.25)}
-.splash .btn-ghost:hover{border-color:var(--accent-dark);color:var(--accent-dark)}
+.splash .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 .scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:grid;place-items:center;width:44px;height:44px;border-radius:50%}
 .scroll-cue svg{width:26px;height:26px;fill:none;stroke:#e9eaec;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:cue 1.8s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}

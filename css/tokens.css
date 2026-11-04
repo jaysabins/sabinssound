@@ -3,8 +3,7 @@
   /* Palette */
   --bg:#0d1117; --surface:#151b23; --raise:color-mix(in srgb, var(--surface), #fff 5%);
   --fg:#e9eaec; --muted:#a3a7ae; --line:#34383e;
-  --accent-dark:#3fb950; /* THE accent color (dark theme). Also used on the home splash, which stays dark in both themes. (Jay, Nov 2026) */
-  --accent:var(--accent-dark); /* play button, slashes, focus rings, links on hover; light theme overrides it below */
+  --accent:#3fb950;      /* play button, slashes, focus rings, links on hover. Same in light and dark (Jay, Nov 2026) */
   --accent-ink:#0d1117;  /* icons and text on accent fills */
   --glow:0.10;           /* neon glow strength on accent items, 0 = off, 1 = strong (Jay, Nov 2026) */
   --glow-color:color-mix(in srgb, var(--accent) calc(var(--glow) * 70%), transparent);
@@ -25,12 +24,11 @@
 }
 
 /* Light theme: set by the sun/moon switch in the header (js/site.js), saved per visitor.
-   Jade is darkened so accent text keeps contrast on white; glow is softer. */
+   Uses the same accent as dark (Jay, Nov 2026), with dark ink on accent fills so button text stays readable; glow is softer. */
 :root[data-theme="light"]{
   --bg:#f5f6f7; --surface:#ffffff; --raise:color-mix(in srgb, var(--surface), #000 4%);
   --fg:#0d1117; --muted:#555b64; --line:#d9dde2;
-  --accent:#16875a;
-  --accent-ink:#ffffff;
+  --accent-ink:#0d1117;  /* text/icons on accent fills: 7.4:1 on the green */
   --glow:0.12;
   color-scheme:light;
 }
