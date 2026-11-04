@@ -14,7 +14,7 @@ Business site for Sabins Sound (Jay Sabins): tools and sound libraries. Sister s
 
 ## Design
 
-Same tokens as the portfolio (`css/tokens.css`, direction 6A): dark single theme, Work Sans (headings + body) + Chakra Petch (data), green accent `#3fb950` in both light and dark, glow 0.10 (Jay set these 2026-11-04; fonts 2026-11-01). This site goes further than the portfolio: hero art, animated waveform, sync diagram, card tilt, scroll reveal. All motion respects `prefers-reduced-motion`. Section headings are one word plus an accent slash.
+Same tokens as the portfolio (`css/tokens.css`, direction 6A): dark single theme, Work Sans (headings + body) + Chakra Petch (data), jade accent `#3fc48a` in both light and dark, glow 0.10 (Jay set these 2026-11-04; fonts 2026-11-01). This site goes further than the portfolio: hero art, animated waveform, sync diagram, card tilt, scroll reveal. All motion respects `prefers-reduced-motion`. Section headings are one word plus an accent slash.
 
 ## Quality bar
 
